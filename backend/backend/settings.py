@@ -59,6 +59,8 @@ CORS_ORIGIN_WHITELIST = [ # 해당 주소부터의 요청 허용 CORS
 CORS_ALLOWED_ORIGINS = [ # 해당 주소부터의 요청 허용 CORS
     'http://localhost:3000',
 ]
+CORS_ORIGIN_ALLOW_ALL = True # 모든 출처에서의 요청 허용
+CORS_ALLOWED_CREDENTIALS = True # 자격증명 허용
 
 ROOT_URLCONF = 'backend.urls'
 

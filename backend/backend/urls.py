@@ -21,5 +21,5 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('fine_tuning_chatbot.urls')),
+    path('api/', include('fine_tuning_chatbot.urls')), # fine_tuning_chatbot의 urls연결
 ]
