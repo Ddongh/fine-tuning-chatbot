@@ -37,11 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
-    'fine_tuning_chatbot',
+    'rest_framework', # Django REST 프레임워크를 활성화하고 직렬화, 뷰, 인증 등과 같은 기능에 접근
+    'fine_tuning_chatbot', # 'fine_tuning_chatbot'을 INSTALLED_APPS에 포함시킴으로써 Django에 이 애플리케이션을 알리고 프로젝트의 전체 구조에 포함
+    'corsheaders', # for Cross-Origin
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware', # cross-origin 요청 허용(backend-frontend 연결)
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -49,6 +51,13 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+CORS_ORIGIN_WHITELIST = [ # 해당 주소부터의 요청 허용 CORS
+    "http://localhost:3000",
+]
+CORS_ALLOWED_ORIGINS = [ # 해당 주소부터의 요청 허용 CORS
+    'http://localhost:3000',
 ]
 
 ROOT_URLCONF = 'backend.urls'
