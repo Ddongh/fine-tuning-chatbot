@@ -27,6 +27,7 @@ const Buy_lotto: React.FC = () => {
 			alert("6개를 선택해주세요.");
 			return
 		}
+		
 	}
 
 	const chooseNumber = (e: React.MouseEvent<HTMLDivElement, MouseEvent>): void => {
@@ -57,9 +58,9 @@ const Buy_lotto: React.FC = () => {
 							<table>
 								<tbody>
 									<tr>
-										<td width={"300px"}>
+										<td className="w300">
 											{lottoNumbers.map((number, key) => (
-												<div id={`lottoNumbers${number}`} onClick={chooseNumber} data-number={number} key={key} style={{width: "30px", height:"45px", display: "inline-block", textAlign:"center", border:"1px solid #f56d6d", margin:"5px"}}>{number}</div>
+												<div className="lottoNumbersDiv" id={`lottoNumbers${number}`} onClick={chooseNumber} data-number={number} key={key} >{number}</div>
 											))}
 										</td>
 									</tr>

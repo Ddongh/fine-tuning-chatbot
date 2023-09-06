@@ -1,0 +1,12 @@
+.w300 {
+    width: 300px;
+}
+
+.lottoNumbersDiv {
+    width: 30px; 
+    height: 45px;
+    display: inline-block;
+    text-align: center;
+    border: 1px solid #f56d6d;
+    margin: 5px;
+}
