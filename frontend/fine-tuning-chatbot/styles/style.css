@@ -1,0 +1,22 @@
+table {
+    width: 100%;
+}
+
+td {
+    width: 50%;
+    padding: 0px 10px 0px 10px
+}
+
+textarea {
+    width: 100%;
+    resize: none; /* 사용자 크기 조정 비활성화 */
+    overflow-y: hidden; /* 수직 스크롤바 숨김 */
+}
+
+.w100 {
+    width: 100%;
+}
+
+.tac {
+    text-align: center;
+}
