@@ -112,8 +112,13 @@ const Buy_lotto: React.FC = () => {
 							<table>
 								<tbody>
 									<tr>
-
+										<span>1</span>
+										<span>2</span>
 									</tr>
+									<td>
+										2
+									</td>
+									
 								</tbody>
 							</table>
 						</td>
