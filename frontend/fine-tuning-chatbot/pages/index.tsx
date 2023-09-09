@@ -6,12 +6,12 @@ const Home: React.FC = () => {
 
     const [data, setData] = useState<string>('');
 
-    useEffect(() => {
-      fetch(`${BACKEND_URL}api/hello`)
-        .then(response => response.json())
-        .then(data => setData(data));
+    // useEffect(() => {
+    //   fetch(`${BACKEND_URL}api/hello`)
+    //     .then(response => response.json())
+    //     .then(data => setData(data));
     
-    }, [])
+    // }, [])
     
 
     return (
