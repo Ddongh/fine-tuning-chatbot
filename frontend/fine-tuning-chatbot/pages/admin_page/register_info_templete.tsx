@@ -36,7 +36,7 @@ const Info_page: React.FC = () => {
     }
     return (
         <div>
-            <h1>1. html입력 및 결과 확인</h1>
+            {/* <h1>1. html입력 및 결과 확인</h1> */}
             <div style={{display:'flex', justifyContent: 'center'}}>
                 <div style={{width:"500px", marginRight:"30px"}}>
                     <h1 style={{textAlign:"center"}}>HTML</h1>
@@ -49,84 +49,30 @@ const Info_page: React.FC = () => {
                     />    
                 </div>
                 <div style={{width:"500px", marginLeft:"30px"}}>
-                    <h1 style={{textAlign:"center"}}>Parsed</h1>
-                        <Button type="primary">Primary Button</Button>
+                    {/* <h1 style={{textAlign:"center"}}>Parsed</h1>
+                    <Button type="primary">Primary Button</Button> */}
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <h1 style={{ flex: 1, textAlign:"center" }}>Parsed</h1>
+                        <Button type="primary">Test</Button>
+                    </div>
                     <div ref={parsedHTML} style={{border:"1px solid black", minHeight:"500px"}}></div>
                 </div>
             </div>
-            <h1>2. 수집할 태그 종류 및 name입력 및 테스트</h1>
+            {/* <h1>2. 수집할 태그 종류 및 name입력 및 테스트</h1> */}
             <div style={{display:'flex', justifyContent: 'center'}}>
                 <div style={{width:"500px", height:"300px", marginRight:"30px"}}>
-                {/* 1. 템플릿 명:  */}
-                {/* <Input type="text" style={{width:"300px"}}></Input> */}
-                <br /><br />
-                태그 종류 및 속성 선택
+                    <h1 style={{textAlign:"center"}}>Error</h1>
+                    <div style={{border:"1px solid black", minHeight:"300px"}}>
 
-                <br></br>
-                <Select
-                // defaultValue="input"
-                placeholder= "수집할 태그를 선택하세요."
-                style={{
-                    width: 200,
-                }}
-                onChange={handleTagChange}
-                options={[
-                    {
-                    value: 'input',
-                    label: 'input',
-                    },
-                    {
-                    value: 'select',
-                    label: 'select',
-                    },
-                    {
-                    value: 'textarea',
-                    label: 'textarea',
-                    },
-                    
-                ]}
-                />
-                {tagName === "input" && 
-                    <Select
-                    // defaultValue="input"
-                    placeholder= "input태그의 type을 선택하세요"
-                    style={{
-                        width: 200,
-                    }}
-                    onChange={handleTypeChange}
-                    options={[
-                        {
-                        value: 'text',
-                        label: 'text',
-                        },
-                        {
-                        value: 'radio',
-                        label: 'radio',
-                        },
-                        {
-                        value: 'checkbox',
-                        label: 'checkbox',
-                        },
-                        {
-                        value: 'date',
-                        label: 'date',
-                        },
-                        {
-                        value: 'email',
-                        label: 'email',
-                        },
-                        {
-                        value: 'range',
-                        label: 'range',
-                        },
-                        
-                    ]}
-                    />
-                }
+                    </div>
 
                 </div>
-                <div style={{width:"500px", marginLeft:"30px", border:"1px solid black"}}>
-                    
+                <div style={{width:"500px", height:"300px", marginLeft:"30px"}}>
+                    <h1 style={{textAlign:"center"}}>Result</h1>
+                    <div style={{border:"1px solid black", minHeight:"300px"}}>
+
+                    </div>
+
                 </div>
             </div>
         </div>
