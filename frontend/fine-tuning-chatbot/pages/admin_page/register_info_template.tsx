@@ -6,8 +6,17 @@ const Info_page: React.FC = () => {
 
     const [html, setHtml] = useState<string>(""); // HTML코드
     const [tagName, setTagName] = useState<string>("") // 수집할 태그 종류
+    const [info, setInfo] = useState({});
     const textareaRef = useRef<HTMLTextAreaElement | null>(null);
     const parsedHTML = useRef<HTMLDivElement | null>(null);
+
+    const addInfo = () => {
+        // 현재 상태를 복사한 뒤 새로운 key와 value를 추가
+        const updatedInfo = { ...info, newKey: 'newValue' };
+    
+        // 변경된 상태를 설정
+        setInfo(updatedInfo);
+    };
 
     useEffect(() => {
         // HTML 파싱 로직
@@ -37,51 +46,28 @@ const Info_page: React.FC = () => {
     }
 
     const chkTagName = (t: HTMLInputElement | HTMLSelectElement) => {
-        if(t.tagName === "INPUT") { // input태그
-            if(t.name === "") { // 모든 input태그의 name 여부 체크
-                debugger;
-                message.error("input태그의 name속성을 입력해주세요.");
-                return false;
-            } else if(t.type === "radio") { // 라디오버튼
-                if(!t.hasAttribute("value")) { // value 속성 체크
-                    debugger;
-                    message.warning("input-radio태그의 value속성을 입력해주세요.");
-                    return false;
-                }
-                
-            }
-
-
-        } else if(t.tagName === "SELECT") {
-            if(t.name === "") {
-                message.error("select태그의 name속성을 입력해주세요.");
-                return false;
-            } else if (t instanceof HTMLSelectElement) {
-                if (t.options.length === 0) {
-                    message.error("select태그의 옵션을 추가해주세요.");
-                    return false;
-                }
-            }
-        }
-
-        return true;
+        return t.tagName === "" ? false : true;
     }
 
     const test = () => {
         if(parsedHTML.current) {
-            const inputTags = parsedHTML.current.querySelectorAll("input");
-            const selectTags = parsedHTML.current.querySelectorAll("select");
+            const tags = parsedHTML.current.querySelectorAll("input, select")
             
-            for (const i of inputTags) {
-                if (!chkTagName(i)) {
-                    break; 
+            tags.forEach((x: Element) => {
+                if (x.tagName === "INPUT") {
+                    const inputElement = x as HTMLInputElement;
+                    if (inputElement.type === "text" || inputElement.type === "") { // text type
+                        setInfo((prevInfo) => ({
+                            ...prevInfo,
+                            [inputElement.name || "name속성 추가 필요"]: inputElement.value,
+                        }));
+                    }
+                } else if (x.tagName === "SELECT") {
+                    const selectElement = x as HTMLSelectElement;
+                    // <select> 처리
+                    // 여기에 원하는 동작을 추가하세요
                 }
-            }
-            for(const s of selectTags) {
-                if (!chkTagName(s)) {
-                    break; 
-                }
-            }
+              });
         } 
         
         
@@ -108,7 +94,7 @@ const Info_page: React.FC = () => {
                         <h1 style={{ flex: 1, textAlign:"center" }}>Parsed</h1>
                         <Button type="primary" onClick={test}>Test</Button>
                     </div>
-                    <div ref={parsedHTML} style={{border:"1px solid black", minHeight:"500px"}}></div>
+                    <div ref={parsedHTML} style={{border:"1px solid black", height:"500px", overflowY:"auto"}}></div>
                 </div>
             </div>
             {/* <h1>2. 수집할 태그 종류 및 name입력 및 테스트</h1> */}
@@ -122,8 +108,25 @@ const Info_page: React.FC = () => {
                 </div>
                 <div style={{width:"500px", height:"300px", marginLeft:"30px"}}>
                     <h1 style={{textAlign:"center"}}>Result</h1>
-                    <div style={{border:"1px solid black", minHeight:"300px"}}>
-
+                    <div className='result' style={{border:"1px solid black", minHeight:"300px"}}>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <td>Tag Name</td>
+                                    <td>Tag Value</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {Object.entries(info).map(([key, value]) => (
+                                <tr key={key}>
+                                    <td>{key}</td>
+                                    <td>{value as string}</td>
+                                </tr>
+                            ))}
+                            </tbody>
+                        </table>
+                        
+                    
                     </div>
 
                 </div>
