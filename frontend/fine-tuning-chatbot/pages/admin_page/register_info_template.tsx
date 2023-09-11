@@ -1,5 +1,6 @@
 import React, {useEffect, useState, ChangeEvent, useRef} from 'react';
-import { Input, Select, Button } from "antd"
+import { Input, Select, Button, message } from "antd"
+import { test } from 'node:test';
 
 const Info_page: React.FC = () => {
 
@@ -34,6 +35,58 @@ const Info_page: React.FC = () => {
         // setTagName(value);
         console.log(value);
     }
+
+    const chkTagName = (t: HTMLInputElement | HTMLSelectElement) => {
+        if(t.tagName === "INPUT") { // input태그
+            if(t.name === "") { // 모든 input태그의 name 여부 체크
+                debugger;
+                message.error("input태그의 name속성을 입력해주세요.");
+                return false;
+            } else if(t.type === "radio") { // 라디오버튼
+                if(!t.hasAttribute("value")) { // value 속성 체크
+                    debugger;
+                    message.warning("input-radio태그의 value속성을 입력해주세요.");
+                    return false;
+                }
+                
+            }
+
+
+        } else if(t.tagName === "SELECT") {
+            if(t.name === "") {
+                message.error("select태그의 name속성을 입력해주세요.");
+                return false;
+            } else if (t instanceof HTMLSelectElement) {
+                if (t.options.length === 0) {
+                    message.error("select태그의 옵션을 추가해주세요.");
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    const test = () => {
+        if(parsedHTML.current) {
+            const inputTags = parsedHTML.current.querySelectorAll("input");
+            const selectTags = parsedHTML.current.querySelectorAll("select");
+            
+            for (const i of inputTags) {
+                if (!chkTagName(i)) {
+                    break; 
+                }
+            }
+            for(const s of selectTags) {
+                if (!chkTagName(s)) {
+                    break; 
+                }
+            }
+        } 
+        
+        
+    
+    }
     return (
         <div>
             {/* <h1>1. html입력 및 결과 확인</h1> */}
@@ -53,7 +106,7 @@ const Info_page: React.FC = () => {
                     <Button type="primary">Primary Button</Button> */}
                     <div style={{ display: 'flex', alignItems: 'center' }}>
                         <h1 style={{ flex: 1, textAlign:"center" }}>Parsed</h1>
-                        <Button type="primary">Test</Button>
+                        <Button type="primary" onClick={test}>Test</Button>
                     </div>
                     <div ref={parsedHTML} style={{border:"1px solid black", minHeight:"500px"}}></div>
                 </div>

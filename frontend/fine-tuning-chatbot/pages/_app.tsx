@@ -7,11 +7,11 @@ function MyApp({ Component, pageProps }: AppProps) {
     return(
         // <div style={{height:"100%"}}>
         <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
-            <h1>header</h1>
+            {/* <h1>header</h1> */}
             <div style={{ flex: 1 }}>
                 <Component {...pageProps} />
             </div>
-            <h1>footer</h1>
+            {/* <h1>footer</h1> */}
         </div>
         
     ); 

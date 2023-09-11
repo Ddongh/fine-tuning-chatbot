@@ -32,11 +32,22 @@ textarea {
     display: flex;
     flex-wrap: wrap;
     width: 400px; /* 그리드의 너비 조절 */
-  }
+}
   
-  .item {
+.item {
     width: 50%; /* 각 아이템의 너비를 50%로 설정하여 2x2 그리드 생성 */
     padding: 20px;
     box-sizing: border-box; /* 내부 패딩을 고려한 너비 설정 */
     border: 1px solid #ccc; /* 아이템 경계선 추가 (선택 사항) */
-  }
+}
+
+.ant-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
