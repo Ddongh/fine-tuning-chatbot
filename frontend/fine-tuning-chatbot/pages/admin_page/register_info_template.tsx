@@ -9,6 +9,7 @@ const Info_page: React.FC = () => {
     const [info, setInfo] = useState({});
     const textareaRef = useRef<HTMLTextAreaElement | null>(null);
     const parsedHTML = useRef<HTMLDivElement | null>(null);
+    const [parsedHTML_0, setParsedHTML_0] = useState<HTMLDivElement | null>(null);
 
     const addInfo = () => {
         // 현재 상태를 복사한 뒤 새로운 key와 value를 추가
@@ -24,10 +25,12 @@ const Info_page: React.FC = () => {
             const parser = new DOMParser();
             // const doc = parser.parseFromString(html.replaceAll("\n", "<br>"), 'text/html');
             const doc = parser.parseFromString(html, 'text/html');
-
+            debugger;
             // 파싱된 HTML을 parsedHTML 요소에 설정
-            parsedHTML.current.innerHTML = '';
-            parsedHTML.current.appendChild(doc.documentElement);
+            // parsedHTML.current.innerHTML = '';
+            // parsedHTML.current.appendChild(doc.documentElement);
+
+            // setParsedHTML_0(doc.documentDivElement);
         }
     }, [html])
     
@@ -94,7 +97,9 @@ const Info_page: React.FC = () => {
                         <h1 style={{ flex: 1, textAlign:"center" }}>Parsed</h1>
                         <Button type="primary" onClick={test}>Test</Button>
                     </div>
-                    <div ref={parsedHTML} style={{border:"1px solid black", height:"500px", overflowY:"auto"}}></div>
+                    <div ref={parsedHTML} style={{border:"1px solid black", height:"500px", overflowY:"auto"}}>
+                        <div dangerouslySetInnerHTML={{ __html: html }} />
+                    </div>
                 </div>
             </div>
             {/* <h1>2. 수집할 태그 종류 및 name입력 및 테스트</h1> */}
