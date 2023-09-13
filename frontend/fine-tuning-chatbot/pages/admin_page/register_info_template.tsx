@@ -57,8 +57,8 @@ const Info_page: React.FC = () => {
     const test = () => {
 
         if(parsedHTML.current) {
-            const tags = parsedHTML.current.querySelectorAll("input, select")
-            
+            const tags = parsedHTML.current.querySelectorAll("input, select, textarea")
+            debugger;
             tags.forEach((x: Element) => {
                 if (x.tagName === "INPUT") {
                     const inputElement = x as HTMLInputElement;
@@ -99,14 +99,14 @@ const Info_page: React.FC = () => {
                                 </div>
                             </div>
                             
-                            <h1 style={{}}>HTML</h1>
+                            <h1 style={{margin:"22px auto"}}>HTML</h1>
                             <div style={{width:"150px"}} />
 
                         </div>
-                        <div className="tab-content">
+                        <div className="tab-content" >
                             {activeTab === 'html' && (
                             <textarea
-                                style={{resize: 'none' }}
+                                style={{resize: 'none'}}
                                 value={html}
                                 onChange={(e) => setHtml(e.target.value)}
                                 placeholder="이곳에 HTML을 입력하세요."
@@ -147,7 +147,11 @@ const Info_page: React.FC = () => {
                     </div>
                     <div dangerouslySetInnerHTML={{ __html: html }}  
                     ref={parsedHTML} 
-                    style={{border:"1px solid black", height:"500px", overflowY:"auto", borderRadius:"10px" }} 
+                    style={{border:"1px solid black"
+                    , height:"500px", overflowY:"auto"
+                    , borderRadius:"10px"
+                    , padding: "4px" 
+                    }} 
                     />
 
                 </div>

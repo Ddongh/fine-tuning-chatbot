@@ -11,7 +11,9 @@ td {
 textarea {
     width: 100%;
     height: 100%;
-    border-radius: 10px; 
+    /* border: 0px; */
+    border-radius: 10px;
+    
     /* resize: none;
     overflow-y: hidden; 수직 스크롤바 숨김 */ 
 }
@@ -82,6 +84,68 @@ textarea::placeholder {
 }
 
 .tab-content {
-    border-radius: 1px solid;
+    /* border: 1px solid; */
     height: 500px;
+    /* padding: 4px; */
+    /* border-radius: 10px; */
 }
+
+
+
+
+
+/* 일반 텍스트 입력 필드 */
+input[type="text"],
+input[type="password"],
+input[type="number"],
+input[type="email"] {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+/* 체크박스와 라디오 버튼 */
+input[type="checkbox"],
+input[type="radio"] {
+  margin-right: 5px;
+}
+
+/* 텍스트 영역 (textarea) */
+textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+/* 선택 상자 (select) */
+select {
+  padding: 10px;
+}
+
+/* 스타일링된 체크박스 및 라디오 버튼 */
+.custom-checkbox,
+.custom-radio {
+    position:relative; 
+    display:inline-block; 
+    cursor:pointer; 
+    font-size:14px; 
+    line-height:normal; 
+    margin-right:5px;}
+
+.custom-checkbox input,
+.custom-radio input { 
+   position:absolute;  
+   z-index:-1;   
+   opacity:0;}
+
+.custom-checkbox label, .custom-radio label {  
+   display:block;  
+   position:relative;
+
+   /* 체크되지 않은 상태의 스타일 */
+   background-color:#fff;   
+   border:solid #bbb;
+
+   /* 체크된 상태의 스타일 */   
+}
+
