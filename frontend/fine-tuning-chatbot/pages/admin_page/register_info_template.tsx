@@ -44,6 +44,9 @@ const Info_page: React.FC = () => {
                     setHtml(htmlCode);
                 },
                 onCancel() {
+                    // 파일 초기화
+                    debugger;
+                    
                     return false;
                 },
             });
@@ -116,8 +119,7 @@ const Info_page: React.FC = () => {
                                     name="avatar"
                                     listType="picture-card"
                                     className="avatar-uploader"
-                                    showUploadList={false}
-                                    action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                                    showUploadList={true}
                                     onChange={handleUploadChange}
                                 >
                                     <div
