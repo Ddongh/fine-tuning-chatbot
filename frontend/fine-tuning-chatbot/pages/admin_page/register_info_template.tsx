@@ -121,6 +121,7 @@ const Info_page: React.FC = () => {
                                     className="avatar-uploader"
                                     showUploadList={true}
                                     onChange={handleUploadChange}
+                                    style={{ width: '300px', height: '300px' }}
                                 >
                                     <div
                                         style={{
