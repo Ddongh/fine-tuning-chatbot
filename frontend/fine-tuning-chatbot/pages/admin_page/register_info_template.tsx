@@ -1,20 +1,14 @@
 import React, {useEffect, useState, ChangeEvent, useRef} from 'react';
-import { Input, Select, Button, message, Upload } from "antd"
+import { Input, Select, Button, message, Upload, Modal } from "antd"
+import { PlusOutlined } from '@ant-design/icons';
 import { test } from 'node:test';
 
 const Info_page: React.FC = () => {
 
     const [html, setHtml] = useState<string>(""); // HTML코드
-    const [tagName, setTagName] = useState<string>("") // 수집할 태그 종류
     const [info, setInfo] = useState({});
-    // const [parsedHTML_0, setParsedHTML_0] = useState<HTMLElement|null>(null);
-    // const textareaRef = useRef<HTMLTextAreaElement | null>(null);
     const parsedHTML = useRef<HTMLDivElement | null>(null);
-    
-
     const [activeTab, setActiveTab] = useState<string>('html');
-    // const [html, setHtml] = useState<string>('');
-    const [file, setFile] = useState('');
 
     const handleTabChange = (tabName: string) => {
         setActiveTab(tabName);
@@ -27,37 +21,34 @@ const Info_page: React.FC = () => {
         // 변경된 상태를 설정
         setInfo(updatedInfo);
     };
+     
+    const handleUploadChange = (info: any) => {
+        
+        const reader = new FileReader();
 
-    // useEffect(() => {
-    //     // HTML 파싱 로직
-    //     if (parsedHTML.current) {
-    //         const parser = new DOMParser();
-    //         // const doc = parser.parseFromString(html.replaceAll("\n", "<br>"), 'text/html');
-    //         const doc = parser.parseFromString(html, 'text/html');
-    //         setParsedHTML_0(doc.documentElement);
-    //         // 파싱된 HTML을 parsedHTML 요소에 설정
-    //         // parsedHTML.current.innerHTML = '';
-    //         // parsedHTML.current.appendChild(doc.documentElement);
-    //     }
-    // }, [html])
-    
+        reader.onload = (e) => {
 
-    const onHtmlChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        debugger;
-        const newHtmlValue: string = e.target.value;
-        setHtml(newHtmlValue); 
-    };
-    
-    const handleTagChange = (value: string) => {
-        setTagName(value);
-    }
-    const handleTypeChange = (value: string) => {
-        // setTagName(value);
-        console.log(value);
-    }
+            if(info.file.type !== 'text/html') {
+                message.warning("html형식의 파일만 업로드 가능합니다.")
+                return
+            }
 
-    const chkTagName = (t: HTMLInputElement | HTMLSelectElement) => {
-        return t.tagName === "" ? false : true;
+            const htmlCode = e.target?.result as string;
+
+            Modal.confirm({
+                title: '확인',
+                content: '작성한 html코드가 초기화됩니다. \n작업을 진행하시겠습니까?',
+                onOk() {
+                    // 확인 버튼 클릭 시 실행되는 콜백 함수
+                    setActiveTab("html");
+                    setHtml(htmlCode);
+                },
+                onCancel() {
+                    return false;
+                },
+            });
+        };
+        reader.readAsText(info.file.originFileObj);
     }
 
     const test = () => {
@@ -82,30 +73,32 @@ const Info_page: React.FC = () => {
               });
         } 
     }
-    const buttonEvent = () => {
-        alert("33333")
-        }
+
     return (
         <div>
-            <button onClick={buttonEvent}> 1111</button>
-            {/* <h1>1. html입력 및 결과 확인</h1> */}
             <div style={{display:'flex', justifyContent: 'center'}}>
                 <div style={{width:"500px", marginRight:"30px"}}>
-                    <h1 style={{textAlign:"center"}}>HTML</h1>
+                    {/* <h1 style={{textAlign:"center"}}>HTML</h1> */}
                     <div>
-                        <div className="tabs" style={{display:"flex"}}>
-                            <div
-                            className={`tab ${activeTab === 'html' ? 'active' : ''}`}
-                            onClick={() => handleTabChange('html')}
-                            >
-                            HTML
+                        <div className="tabs" style={{display:"flex", alignItems:"center"}}>
+                            <div style={{display:"flex", justifyContent:"flex-start"}}>
+                                <div
+                                className={`tab ${activeTab === 'html' ? 'active' : ''}`}
+                                onClick={() => handleTabChange('html')}
+                                >
+                                HTML
+                                </div>
+                                <div
+                                className={`tab ${activeTab === 'file' ? 'active' : ''}`}
+                                onClick={() => handleTabChange('file')}
+                                >
+                                File
+                                </div>
                             </div>
-                            <div
-                            className={`tab ${activeTab === 'file' ? 'active' : ''}`}
-                            onClick={() => handleTabChange('file')}
-                            >
-                            File
-                            </div>
+                            
+                            <h1 style={{}}>HTML</h1>
+                            <div style={{width:"150px"}} />
+
                         </div>
                         <div className="tab-content">
                             {activeTab === 'html' && (
@@ -117,26 +110,36 @@ const Info_page: React.FC = () => {
                             />
                             )}
                             {activeTab === 'file' && (
-                            <input
-                                type="file"
-                                onChange={(e) => setFile(e.target.value)}
-                            />
+                            <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%'}}>
+                                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                                <Upload
+                                    name="avatar"
+                                    listType="picture-card"
+                                    className="avatar-uploader"
+                                    showUploadList={false}
+                                    action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                                    onChange={handleUploadChange}
+                                >
+                                    <div
+                                        style={{
+                                        marginTop: 8,
+                                        }}
+                                    >
+                                        <PlusOutlined /><br />
+                                        Upload
+                                    </div>
+                                </Upload>
+                                </div>
+                                
+                            </div>
                             
                             )}
-                            <Upload
-                                name="avatar"
-                                listType="picture-card"
-                                className="avatar-uploader"
-                                showUploadList={false}
-                                action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                                // beforeUpload={beforeUpload}
-                                // onChange={handleChange}
-                            ></Upload>
                         </div>
                     </div>
                 </div>
                 <div style={{width:"500px", marginLeft:"30px"}}>
                     <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <div style={{width:"56px"}} />
                         <h1 style={{ flex: 1, textAlign:"center"}}>Parsed</h1>
                         <Button type="primary" onClick={test}>Test</Button>
                     </div>
