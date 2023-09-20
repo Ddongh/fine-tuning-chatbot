@@ -39,8 +39,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework', # Django REST 프레임워크를 활성화하고 직렬화, 뷰, 인증 등과 같은 기능에 접근
     'fine_tuning_chatbot', # 'fine_tuning_chatbot'을 INSTALLED_APPS에 포함시킴으로써 Django에 이 애플리케이션을 알리고 프로젝트의 전체 구조에 포함
-    'corsheaders', # for Cross-Origin
+    'corsheaders', # for Cross-Origin,
+    'rest_framework.authtoken', # 토근 인증 기반 인증 구현을 위해 
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSED': [
+        'rest_framework.authentication.TokenAuthentication', # 토큰 인증 활성화
+    ]
+}
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware', # cross-origin 요청 허용(backend-frontend 연결)
