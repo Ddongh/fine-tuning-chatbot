@@ -12,6 +12,7 @@ class FineTunedModel(models.Model):
     model_name = models.CharField(max_length=100)
     base_model = models.CharField(max_length=100, choices=MODEL_CHOICES) # MODEL_CHOICES 중 하나 선택
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='fine_tuned_models', null=True)
+    # FineTunedModel과 User모델간의 다대일 관계
     file_id = models.CharField(max_length=200, null=True, blank=True)
     # null=True - 데이터베이스 레벨에서 null값이 허용된다.
     # blank=True - 폼 입력시 해당 필드를 선택적으로 비워둘수 있다.
