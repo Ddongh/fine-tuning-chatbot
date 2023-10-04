@@ -25,6 +25,8 @@ const TopNav: React.FC = () => {
 
     const Title:String = "Ddong's Stusy";
 
+    
+
     return(
         <Box sx={{ flexGrow: 1 }} >
             <AppBar position="static">

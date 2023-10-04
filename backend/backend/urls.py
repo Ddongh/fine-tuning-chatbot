@@ -8,4 +8,5 @@ urlpatterns = [
                                                   #rest_framework.urls - DRF에 대한 기본 URL세트를 제공
     path('api/', include('fine_tuning_chatbot.urls')), # fine_tuning_chatbot의 urls연결
     path('api-token-auth/', obtain_auth_token, name='api_token_auth'),
+    path('api/' ,include('bbs.urls')),
 ]

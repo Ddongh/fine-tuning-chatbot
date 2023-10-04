@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'fine_tuning_chatbot', # 'fine_tuning_chatbot'을 INSTALLED_APPS에 포함시킴으로써 Django에 이 애플리케이션을 알리고 프로젝트의 전체 구조에 포함
     'corsheaders', # for Cross-Origin,
     'rest_framework.authtoken', # 토근 인증 기반 인증 구현을 위해 
+    'bbs', # 게시판 어플리케이션
 ]
 
 REST_FRAMEWORK = {
