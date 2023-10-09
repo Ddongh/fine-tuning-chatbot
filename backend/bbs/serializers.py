@@ -1,7 +1,12 @@
 from rest_framework import serializers
-from models import CodingTestModel
+from .models import CodingTestProblems
 
-class CodingtestModelSerializer(serializers.ModelSerializer):
+class CodingTestProblemsSerializer(serializers.ModelSerializer):
     class Meta:
-        model = CodingTestModel
-        fields = ['id', 'level', 'partTitle', 'title', 'finishedAt', 'explain', 'code', 'result', 'comment',]
+        model = CodingTestProblems
+        fields = ['id', 'level', 'partTitle', 'title', 'language', 'finishedAt', 'explain', 'code', 'result', 'comment',]
+
+class CodingTestProblemsTreeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CodingTestProblems
+        fields = ['id', 'level', 'partTitle', 'title', 'language',]

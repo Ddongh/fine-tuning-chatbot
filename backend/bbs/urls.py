@@ -3,5 +3,7 @@ from . import views
 
 urlpatterns = [
     path('crwCodingTest/', views.crwCodingTest),
-    path('initCodingTestModel/', views.initCodingTestModel)
+    path('initCodingTestProblems/', views.initCodingTestProblems),
+    path('allCodingTestProblems/', views.allCodingTestProblems), 
+    path('codingTestTreeData/', views.codingTestTreeData),
 ]

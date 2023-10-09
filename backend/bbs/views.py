@@ -8,7 +8,9 @@ from selenium.webdriver.common.action_chains import ActionChains
 import time
 import json
 # from models import CodingTestModel
-from .models import CodingTestModel
+from .models import CodingTestProblems
+from .serializers import CodingTestProblemsSerializer
+from .serializers import CodingTestProblemsTreeSerializer
 from datetime import datetime
 from decouple import config
 
@@ -16,6 +18,7 @@ from decouple import config
 def crwCodingTest(request):
 
     def crw(p_id, p_pw, lang):
+        
         err_title = ""
         # try:
         login_page = "https://programmers.co.kr/account/sign_in" # 로그인 페이지
@@ -32,7 +35,7 @@ def crwCodingTest(request):
 
         button = driver.find_element(By.CSS_SELECTOR, ".itAWTII94uCyf9uUgREi") # 로그인 버튼
         button.click() # 로그인버튼 클릭
-
+        driver.execute_script("localStorage.setItem('algorithm-lesson_end', 'yes')")
         time.sleep(1)
 
         driver.get(list_page) # 푼 문제 목록 리스트 페이지로 이동
@@ -88,14 +91,14 @@ def crwCodingTest(request):
                     result = driver.find_element(By.CSS_SELECTOR, "#output-wrapper")
                     result_html = result.get_attribute('innerHTML') # 실행결과
 
-                    coding_test = CodingTestModel.objects.get(id=id, language=lang) # 데이터베이스에 저장된 데이터가 있는지 확인
-                    CodingTestModel.objects.update(_id=id, level=level, partTitle=partTitle, title=title, language=lang , finishedAt=formatted_date, explain=explain_html, code=code_html, result=result_html) 
+                    coding_test = CodingTestProblems.objects.get(id=id, language=lang) # 데이터베이스에 저장된 데이터가 있는지 확인
+                    CodingTestProblems.objects.update(id=str(id)+"_"+lang, level=level, partTitle=partTitle, title=title, language=lang , finishedAt=formatted_date, explain=explain_html, code=code_html, result=result_html) 
 
                     # try:
                     #     coding_test = CodingTestModel.objects.get(id=id) # 데이터베이스에 저장된 데이터가 있는지 확인
 
-                except CodingTestModel.DoesNotExist: # 데이터베이스에 존재하지 않으면 create
-                    CodingTestModel.objects.create(_id=id, level=level, partTitle=partTitle, title=title, language=lang , finishedAt=formatted_date, explain=explain_html, code=code_html, result=result_html) 
+                except CodingTestProblems.DoesNotExist: # 데이터베이스에 존재하지 않으면 create
+                    CodingTestProblems.objects.create(id=str(id)+"_"+lang, level=level, partTitle=partTitle, title=title, language=lang , finishedAt=formatted_date, explain=explain_html, code=code_html, result=result_html) 
                 except Exception as e:
                     err_title += title + ", "
                     print("#####################크롤링 에러 발생#####################")
@@ -126,6 +129,19 @@ def crwCodingTest(request):
     return Response("저장완료")
 
 @api_view(['GET'])
-def initCodingTestModel(request):
-    CodingTestModel.objects.all().delete()
+def initCodingTestProblems(request):
+    CodingTestProblems.objects.all().delete()
     return Response("CodingTestModel 초기화 완료")
+
+@api_view(['GET'])
+def allCodingTestProblems(request):
+    problems = CodingTestProblems.objects.all()
+    serializer = CodingTestProblemsSerializer(problems, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def codingTestTreeData(request):
+    problems = CodingTestProblems.objects.all()
+    serializer = CodingTestProblemsTreeSerializer(problems, many=True)
+    return Response(serializer.data)
+

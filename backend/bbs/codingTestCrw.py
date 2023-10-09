@@ -14,7 +14,7 @@ driver.get(url) # 페이지 접속
 email = driver.find_element(By.CSS_SELECTOR,"input[name=email]") # 이메일(아이디) 필드
 password = driver.find_element(By.CSS_SELECTOR, "input[type='password']") # 비밀번호 필드
 #email.send_keys('qwer5383@naver.com') #  파이썬용 계정
-email.send_keys(config('CODING_TEST_PYTHON_ID')) #  파이썬용 계정
+
 password.send_keys('A18501pjdf**p') # 파이썬용 아이디
 
 button = driver.find_element(By.CSS_SELECTOR, ".itAWTII94uCyf9uUgREi") # 로그인 버튼
@@ -51,7 +51,7 @@ for i in range(1, 12):
         run_button.click()
         result = driver.find_element(By.CSS_SELECTOR, "#output-wrapper")
         resule_html = result.get_attribute('innerHTML') # 실행결과
-
+        
         CodingTestModel.objects.create(id=id, level=level, partTitle=partTitle, title=title, finishedAt=finishedAt, explain=explain, code=code, result=result) 
 
         # print(code_html)

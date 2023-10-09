@@ -1,7 +1,7 @@
 from django.db import models
 
-class CodingTestModel(models.Model):
-    _id = models.IntegerField(default=-1) # id
+class CodingTestProblems(models.Model):
+    id = models.CharField(max_length=100, primary_key=True)
     level = models.IntegerField() # level
     partTitle = models.CharField(max_length=100, null=True, blank=True) # 문제의 구분(연습문제, 탐욕법, 정렬,,,)
     title = models.CharField(max_length=100, null=True, blank=True) # 문제의 제목
