@@ -6,4 +6,5 @@ urlpatterns = [
     path('initCodingTestProblems/', views.initCodingTestProblems),
     path('allCodingTestProblems/', views.allCodingTestProblems), 
     path('codingTestTreeData/', views.codingTestTreeData),
+    path('selectedProblem/', views.selectedProblem),
 ]

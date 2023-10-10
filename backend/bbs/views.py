@@ -145,3 +145,13 @@ def codingTestTreeData(request):
     serializer = CodingTestProblemsTreeSerializer(problems, many=True)
     return Response(serializer.data)
 
+@api_view(['GET'])
+def selectedProblem(request):
+    id = request.GET.get('id')
+    try:
+        problem = CodingTestProblems.objects.get(id=id)  # id에 해당하는 데이터 조회
+        # 문제 정보를 적절한 형태로 직렬화(Serialization)하여 응답
+        serializer = CodingTestProblemsSerializer(problem)
+        return Response(serializer.data)
+    except CodingTestProblems.DoesNotExist:
+        return Response(status=404, data={'error': 'Problem not found'})

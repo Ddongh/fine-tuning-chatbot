@@ -16,11 +16,27 @@ interface TreeData {
     partTitle: string;
     title: string;
     language: string;
-  }
+}
+
+interface SelectedData {
+    id: string;
+    level: number;
+    partTitle: string;
+    title: string;
+    language: string;
+    finished: Date;
+    explain: String;
+    code: String;
+    result: String;
+    comment: String;
+
+}
 
 const Problems:React.FC = () => {
 
     const [treeData, setTreeData] = useState<TreeData[] | null>(null);
+    const [selectedId, setSelectedId] = useState<String>("")
+    const [selectedData, setSelectedData] = useState<SelectedData[] | null>(null);
 
     
 
@@ -36,8 +52,24 @@ const Problems:React.FC = () => {
         })
 
     }, [])
-    
 
+    useEffect(() => {
+        axios.get('http://127.0.0.1:8000/bbs/selectedProblem/', {
+            params: {id: selectedId}
+        })
+        .then((response) => {
+            const data = response.data as SelectedData[]
+            setSelectedData(data);
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    }, [selectedId])
+    
+    
+    const onNodeClick = (nodeId: string) => {
+        setSelectedId(nodeId);
+    };
     
 
     return (
@@ -59,7 +91,7 @@ const Problems:React.FC = () => {
                                 {treeData
                                 .filter(node => node.language === 'javascript' && node.level === level)
                                 .map(node => (
-                                    <TreeItem key={node.id} nodeId={node.id} label={node.title}></TreeItem>
+                                    <TreeItem key={node.id} nodeId={node.id} label={node.title} onClick={() => onNodeClick(node.id)}></TreeItem>
                                 ))}
                             </TreeItem>
                             ))}
@@ -87,7 +119,11 @@ const Problems:React.FC = () => {
                 
             </div>
             <div className="right">
-                <h1>right</h1>
+                {selectedData && selectedData.title && 
+                    <div>
+                        title : {selectedData.title}
+                    </div>
+                }
             </div>
         </div>
         
