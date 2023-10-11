@@ -1,0 +1,10 @@
+.codeArea {
+    /* background-color: white; */
+}
+.codeArea div {
+    display: inline-flex;
+}
+
+.codeArea div pre {
+    margin: 0px;
+}

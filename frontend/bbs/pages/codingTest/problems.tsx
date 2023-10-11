@@ -6,7 +6,9 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { TreeView } from '@mui/x-tree-view/TreeView';
 import { TreeItem } from '@mui/x-tree-view/TreeItem';
-import { styled } from '@mui/material/styles';
+import Collapse from '@mui/material/Collapse';
+import Button from '@mui/material/Button';
+
 
 export const BACKEND_URL: string = "http://127.0.0.1:8000/";
 
@@ -24,7 +26,7 @@ interface SelectedData {
     partTitle: string;
     title: string;
     language: string;
-    finished: Date;
+    finishedAt: Date;
     explain: String;
     code: String;
     result: String;
@@ -36,8 +38,12 @@ const Problems:React.FC = () => {
 
     const [treeData, setTreeData] = useState<TreeData[] | null>(null);
     const [selectedId, setSelectedId] = useState<String>("")
-    const [selectedData, setSelectedData] = useState<SelectedData[] | null>(null);
+    const [selectedData, setSelectedData] = useState<SelectedData | null>(null);
+    const [expanded, setExpanded] = useState<boolean>(false);
 
+    const handleToggle = () => {
+        setExpanded(!expanded);
+    };
     
 
     useEffect(() => {
@@ -58,7 +64,7 @@ const Problems:React.FC = () => {
             params: {id: selectedId}
         })
         .then((response) => {
-            const data = response.data as SelectedData[]
+            const data = response.data as SelectedData
             setSelectedData(data);
         })
         .catch(err => {
@@ -75,7 +81,7 @@ const Problems:React.FC = () => {
     return (
         <div style={{display: 'flex'}}>
             <div className="left">
-            <Box sx={{ minHeight: 180, flexGrow: 1, maxWidth: 300 }}>
+            <Box sx={{ minHeight: 180, flexGrow: 1, minWidth: 300 }}>
                 <TreeView
                 aria-label="file system navigator"
                 defaultCollapseIcon={<ExpandMoreIcon />}
@@ -118,11 +124,25 @@ const Problems:React.FC = () => {
             </Box>
                 
             </div>
-            <div className="right">
-                {selectedData && selectedData.title && 
-                    <div>
-                        title : {selectedData.title}
+            <div className="right" style={{width:"100%"}}>
+                {selectedData && 
+                    <div style={{display: 'flex'}}>
+                        <div style={{width:"100%"}} >
+                            <p>{selectedData.language+" > Lv." + selectedData.level + " > " + selectedData.title} </p>
+                            <div dangerouslySetInnerHTML={{ __html: selectedData.code }} className="codeArea" />
+                            <div dangerouslySetInnerHTML={{ __html: selectedData.result }} />
+                            <Button onClick={handleToggle}>
+                                {expanded ? '접기' : '펼치기'}
+                            </Button>
+                            <Collapse in={expanded}>
+                                <div dangerouslySetInnerHTML={{ __html: selectedData.explain }} />
+                            </Collapse>
+
+                            
+                        </div>
+                                         
                     </div>
+                    
                 }
             </div>
         </div>
