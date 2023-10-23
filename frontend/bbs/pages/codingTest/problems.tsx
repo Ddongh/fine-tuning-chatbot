@@ -37,7 +37,7 @@ interface SelectedData {
 const Problems:React.FC = () => {
 
     const [treeData, setTreeData] = useState<TreeData[] | null>(null);
-    const [selectedId, setSelectedId] = useState<String>("")
+    const [selectedId, setSelectedId] = useState<String>("");
     const [selectedData, setSelectedData] = useState<SelectedData | null>(null);
     const [expanded, setExpanded] = useState<boolean>(false);
 
@@ -65,6 +65,7 @@ const Problems:React.FC = () => {
         })
         .then((response) => {
             const data = response.data as SelectedData
+            debugger;
             setSelectedData(data);
         })
         .catch(err => {
@@ -75,6 +76,7 @@ const Problems:React.FC = () => {
     
     const onNodeClick = (nodeId: string) => {
         setSelectedId(nodeId);
+        
     };
     
 
@@ -110,9 +112,9 @@ const Problems:React.FC = () => {
                             {[0, 1, 2, 3, 4, 5].map(level => (
                             <TreeItem key={`level${level}`} nodeId={`level${level}`} label={`Lv.${level}`}>
                                 {treeData
-                                .filter(node => node.language === 'javascript' && node.level === level)
+                                .filter(node => node.language === 'python3' && node.level === level)
                                 .map(node => (
-                                    <TreeItem key={node.id} nodeId={node.id} label={node.title}></TreeItem>
+                                    <TreeItem key={node.id} nodeId={node.id} label={node.title} onClick={() => onNodeClick(node.id)}></TreeItem>
                                 ))}
                             </TreeItem>
                             ))}
